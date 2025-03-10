@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task1 </title>
+    <script>
+        let car = {
+            manufacturer: "BMW",
+            model: "530i",
+            year: 2001,
+            averageSpeed: 150,
+            printInfo: function () {
+                document.writeln(`Car: ${this.manufacturer},${this.model},${this.year},${this.averageSpeed}`);
+            },
+            calcTime: function (distance) {
+                return distance / this.averageSpeed;
+            }
+        };
+        car.printInfo();
+        console.log(car.calcTime(750));
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cycles</title>
+</head>
+<body>
+<div>
+    <ul>
+        <li id="numbers"> Список чисел:</li>
+        <li id="positives">Количество положительных:</li>
+        <li id="negatives">Количество отрицательных:</li>
+        <li id="zeros">Количество нулей:</li>
+        <li id="evens">Количество четных:</li>
+        <li id="odds">Количество нечетных:</li>
+        <li id="gcd">GCD:</li>
+    </ul>
+</div>
+<script>
+
+    function task2() {
+        let num1 = prompt('Введите 1ое число');
+        let num2 = prompt('Введите 2ое число');
+        let res = gcd(num1, num2);
+
+        document.writeln(`<div>GCD(${num1},${num2}) = ${res}</div>`)
+    }
+
+    function gcd(num1, num2) {
+        let max, gcd;
+        if (num1 > num2) {
+            while (num1 % num2 !== 0) {
+                max = num2;
+                num2 = num1 % num2;
+                num1 = max;
+                gcd = num2;
+            }
+        }
+        return gcd;
+    }
+
+    task2();
+
+    function task5() {
+        // Task5
+        let input = prompt('Введите 10 чисел через пробел:');
+        let numbers = input.split(' ');
+        let positives = 0, negatives = 0, zeros = 0, evens = 0, odds = 0;
+        for (let i = 0; i < 10; i++) {
+            // if (numbers[i]===undefined){
+            //
+            // }
+            if (numbers[i] > 0) {
+                positives++;
+            } else if (numbers[i] < 0) {
+                negatives++;
+            } else {
+                zeros++;
+            }
+            if (numbers[i] % 2 === 0) {
+                evens++;
+            } else {
+                odds++;
+            }
+        }
+        document.getElementById("numbers").innerText += numbers;
+        document.getElementById("positives").innerText += positives;
+        document.getElementById("negatives").innerText += negatives;
+        document.getElementById("zeros").innerText += zeros;
+        document.getElementById("evens").innerText += evens;
+        document.getElementById("odds").innerText += odds;
+    }
+
+    // task5();
+</script>
+</body>
+</html>
