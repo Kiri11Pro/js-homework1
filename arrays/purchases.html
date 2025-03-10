@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 1</title>
+    <script>
+        const purchase = new Purchase("water", 1, false)
+        let purchaseList = [purchase,
+            new Purchase("milk", 2, false),
+            new Purchase("apple", 3, true),
+            new Purchase("milk", 2, false),
+            new Purchase("apple", 3, true)];
+        // document.write(purchaseList.toString());
+        // for (const purchase1 of purchaseList){
+        //     document.write(purchase1+"<br/>");
+        // }
+        // for (const key in purchaseList) {
+        //     document.write(purchaseList[key]+"<br/>");
+        // }
+        add("milk",purchaseList);
+        buy("milk", purchaseList);
+        print(purchaseList);
+        // function add(purchase,purchaseList){
+        //     if(purchaseList.indexOf(purchase)===-1){
+        //         purchaseList.push(purchase,1,true)
+        //     }
+        //     else {purchaseList.}
+        //
+        // }
+        function buy(productName, purchaseList) {
+            purchaseList
+                .filter((element) => element.productName === productName)
+                .forEach((element) => element.isBought = true);
+        }
+
+        function add(purchase, purchaseList) {
+            let foundPurchase = purchaseList.find(
+                function (element) {
+                    if (element.productName === purchase.productName)
+                        return element;
+                });
+            foundPurchase ? foundPurchase.amount += purchase.amount : purchaseList.push(purchase);
+        }
+
+        function print(purchase) {
+            document.write("<ul>");
+            purchase.forEach((purchase) => document.write(`<li>${purchase}</li>`));
+        }
+
+        // function print(purchases){
+        //     document.write(purchases.toString());
+        // }
+        function sortPurchases(purchases) {
+            return purchases.sort(function (p1, p2) {
+                if (p1.isBought === p2.isBought)
+                    return 0;
+                if (p1.isBought === false && p2.isBought === true) {
+                    return -1;
+                }
+                return 1;
+            });
+        }
+
+        function Purchase(productName, amount, isBought) {
+            this.productName = productName;
+            this.amount = amount;
+            this.isBought = isBought;
+            this.toString = function () {
+                return `Purchase [productName:${this.productName},amount:${this.amount},isBought:${this.isBought}]`;
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
