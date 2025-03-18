@@ -17,12 +17,28 @@
     </ul>
 </div>
 <script>
+    tasks();
 
+    function tasks() {
+        let tasks = prompt('Введите номер задания(2,3,4,6)');
+        if (tasks === '2') {
+            task2();
+        }
+        if (tasks === '3') {
+            task3();
+        }
+        if (tasks === '4') {
+            task4();
+        }
+        if (tasks === '6') {
+            task6();
+        }
+    }
+    // Запросить 2 числа и найти только наибольший общий делитель
     function task2() {
         let num1 = prompt('Введите 1ое число');
         let num2 = prompt('Введите 2ое число');
         let res = gcd(num1, num2);
-
         document.writeln(`<div>GCD(${num1},${num2}) = ${res}</div>`)
     }
 
@@ -39,7 +55,94 @@
         return gcd;
     }
 
-    task2();
+
+    // task3
+
+
+    // Запросить у пользователя число и вывести все делители этого числа.
+    function task3() {
+        let num3 = prompt('Введите число:');
+        let resDividers = dividers(num3);
+        document.writeln(`<div>dividers(${num3}) = ${resDividers}</div>`)
+    }
+
+    function dividers(num3) {
+        let dividers = [];
+        for (let i = 1; i <= Math.sqrt(num3); i++) {
+            if (num3 % i === 0) {
+                dividers.push(i);
+                if (i !== num3 / i) {
+                    dividers.push(num3 / i);
+                }
+            }
+        }
+        return dividers.sort((a, b) => a - b);
+    }
+
+    // task4
+    // Определить количество цифр во введенном числе.
+
+
+    function task4() {
+        let num4 = prompt('Введите число');
+        let amountDigits = digits(num4);
+        document.writeln(`<div>digits(${num4}) = ${amountDigits}</div>`)
+    }
+
+    function digits(num4) {
+        let digits = 1;
+        while (num4 >= 10) {
+            if (num4 / 10 > 0) {
+                num4 = num4 / 10;
+                digits++;
+            }
+        }
+        return digits;
+
+    }
+
+    // task6
+    // Зациклить калькулятор. Запросить у пользователя 2 числа
+    // и знак, решить пример, вывести результат и спросить, хо
+    // чет ли он решить еще один пример. И так до тех пор, пока
+    // пользователь не откажется.
+
+
+    function task6() {
+        let num5 = prompt('Введите 1ое число');
+        let num6 = prompt('Введите 2ое число');
+        let sign = prompt('Введите знак (+, -, *, /)');
+        num5 = parseInt(num5);
+        num6 = parseInt(num6);
+        let resCalc = calc(num5, num6, sign);
+        let repeat = confirm(`${num5}${sign}${num6} = ${resCalc}. Решить еще пример?`);
+        if (repeat) {
+            task6();
+        }
+        document.writeln(`<div>calc(${num5}${sign}${num6}) = ${resCalc}</div>`);
+    }
+
+    function calc(num5, num6, sign) {
+        let calc;
+        if (sign === '+') {
+            calc = num5 + num6;
+        }
+        if (sign === '-') {
+            calc = num5 - num6;
+        }
+        if (sign === '*') {
+            calc = num5 * num6;
+        }
+        if (sign === '/') {
+            if (num6 !== 0) {
+                calc = num5 / num6
+            } else {
+                calc = 'делить на 0 нельзя';
+            }
+        }
+        return calc;
+    }
+
 
     function task5() {
         // Task5
