@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <script>
+        class User {
+            _password = "";
+            #secret;
+
+            constructor(name) {
+                this.name = name;
+                this.#secret="secret value";
+            }
+
+            sayHi() {
+                alert(this.name);
+            }
+            get password(){
+                return this._password;
+            }
+            set password(password){
+                this._password=password;
+            }
+            get secret(){
+                return this.#secret;
+            }
+        }
+
+        const user = new User("user");
+        user._password="1234";
+
+        console.log(user.secret);
+
+        // класс - это функция
+        alert(typeof User); // function
+
+        // ...или, если точнее, это метод constructor
+        alert(User === User.prototype.constructor); // true
+
+        // Методы находятся в User.prototype, например:
+        alert(User.prototype.sayHi); // sayHi() { alert(this.name); }
+
+        // в прототипе ровно 2 метода
+        alert(Object.getOwnPropertyNames(User.prototype)); // constructor, sayHi
+    </script>
+</head>
+<body>
+
+</body>
+</html>

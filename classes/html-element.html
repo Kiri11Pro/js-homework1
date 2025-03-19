@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HtmlElement</title>
+    <!--    Реализовать класс, описывающий html элемент.-->
+    <!--    Класс HtmlElement должен содержать внутри себя:-->
+    <!--    ■ название тега;-->
+    <!--    ■ самозакрывающийся тег или нет;-->
+    <!--    ■ текстовое содержимое;-->
+    <!--    ■ массив атрибутов;-->
+    <!--    ■ массив стилей;-->
+    <!--    ■ массив вложенных таких же тегов;-->
+    <!--    2-->
+    <!--    ■ метод для установки атрибута;-->
+    <!--    ■ метод для установки стиля;-->
+    <!--    ■ метод для добавления вложенного элемента в конец теку- -->
+    <!--    щего элемента;-->
+    <!--    ■ метод для добавления вложенного элемента в начало те- -->
+    <!--    кущего элемента;-->
+    <!--    ■ метод getHtml(), который возвращает html код в виде-->
+    <!--    строки, включая html код вложенных элементов.-->
+    <!--    С помощью написанного класса реализовать следующий блок-->
+    <!--    и добавить его на страницу с помощью document.write().-->
+    <script>
+        class HtmlElement {
+            constructor(name, isVoid, text) {
+                this.name = name;
+                this.isVoid = isVoid;
+                this.text = text;
+                this.attributes = [];
+                this.ccsProperties = [];
+                this.nestingElements = [];
+            }
+
+            setAttribute(attribute) {
+                this.attributes.push(attribute);
+            }
+
+            setCssProperty(cssProperty) {
+                this.ccsProperties.push(cssProperty);
+            }
+
+            pushNestingElement(newHtmlElement) {
+                this.nestingElements.push(newHtmlElement);
+            }
+
+            unshiftNestingElement(newHtmlElement) {
+                this.nestingElements.unshift(newHtmlElement);
+            }
+
+            getHtml() {
+                let html = "<" + this.name;
+                this.attributes.forEach(attribute => html += ` ${attribute.name}="${attribute.value}"`);
+                if (this.ccsProperties.length !== 0) {
+                    html += 'style="';
+                    this.ccsProperties.forEach(cssProperties => html += `${cssProperties.name}: ${cssProperties.value};`);
+                    html += '"';
+                }
+                if (this.isVoid) {
+                    html += "/>";
+
+                } else {
+                    html += ">";
+                    html += this.text;
+                    html += `</${this.name}>`;
+                }
+                return html;
+            }
+        }
+
+        const div = new HtmlElement("div", false, "Text content");
+        div.setAttribute(
+            {
+                name: "id",
+                value: "myDiv"
+            }
+        );
+        div.setCssProperty(
+            {
+                name: "color",
+                value: "brown"
+            }
+        );
+        div.setCssProperty(
+            {
+                name: "border",
+                value: "2px solid orange"
+            }
+        );
+
+            document.write(div.getHtml());
+        const div1 = new HtmlElement("div",false,div.getHtml());
+        div1.setAttribute(
+            {
+                name:"id",
+                value:"wrapper"
+            });
+            div1.setCssProperty(
+                {
+                    name:"display",
+                    value:"flex"
+                }
+            );
+        document.write(div1.getHtml());
+
+    </script>
+</head>
+<body>
+<!--<div id="myDiv" style="color: brown;border: 2px solid orange">Text content</div>-->
+
+</body>
+</html>
