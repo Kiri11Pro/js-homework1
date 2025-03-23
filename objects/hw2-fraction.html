@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fraction</title>
+    <script>
+        function Fraction(numerator, denominator) {
+            this.numerator = numerator;
+            this.denominator = denominator;
+        }
+
+        const fraction1 = new Fraction(15, 20);
+        const fraction2 = new Fraction(2, 9);
+
+        function sum(fraction1, fraction2) {
+            const numerator = fraction1.numerator * fraction2.denominator + fraction2.numerator * fraction1.denominator;
+            const denominator = fraction1.denominator * fraction2.denominator;
+            return {numerator, denominator};
+        }
+
+        const resultSum = sum(fraction1, fraction2);
+        document.writeln(`<div>(${fraction1.numerator}/${fraction1.denominator} + ${fraction2.numerator}/${fraction2.denominator})
+= ${resultSum.numerator}/${resultSum.denominator}</div>`);
+
+        function subtraction(fraction1, fraction2) {
+            const numerator = fraction1.numerator * fraction2.denominator - fraction2.numerator * fraction1.denominator;
+            const denominator = fraction1.denominator * fraction2.denominator;
+            return {numerator, denominator};
+        }
+
+        const resultSubtraction = subtraction(fraction1, fraction2);
+        document.writeln(`<div>(${fraction1.numerator}/${fraction1.denominator} - ${fraction2.numerator}/${fraction2.denominator})
+= ${resultSubtraction.numerator}/${resultSubtraction.denominator}</div>`);
+
+        function multiplication(fraction1, fraction2) {
+            const numerator = fraction1.numerator * fraction2.numerator;
+            const denominator = fraction1.denominator * fraction2.denominator;
+            return {numerator, denominator};
+        }
+
+        const resultMultiplication = multiplication(fraction1, fraction2);
+        document.writeln(`<div>(${fraction1.numerator}/${fraction1.denominator} * ${fraction2.numerator}/${fraction2.denominator})
+= ${resultMultiplication.numerator}/${resultMultiplication.denominator}</div>`);
+
+        function division(fraction1, fraction2) {
+            const numerator = fraction1.numerator * fraction2.denominator;
+            const denominator = fraction1.denominator * fraction2.numerator;
+            return {numerator, denominator};
+        }
+
+        const resultDivision = division(fraction1, fraction2);
+        document.writeln(`<div>(${fraction1.numerator}/${fraction1.denominator} / ${fraction2.numerator}/${fraction2.denominator})
+= ${resultDivision.numerator}/${resultDivision.denominator}</div>`);
+
+
+        function reduction(fraction1) {
+            const gcd1 = gcd(fraction1.numerator, fraction1.denominator);
+
+            const numerator = fraction1.numerator / gcd1;
+            const denominator = fraction1.denominator / gcd1;
+            return {numerator, denominator};
+        }
+
+        function gcd(num1, num2) {
+            let gcd;
+            while (num2 !== 0) {
+                const temp = num2;
+                num2 = num1 % num2;
+                num1 = temp;
+            }
+            gcd = num1;
+            return gcd;
+        }
+
+        const resultReduction = reduction(fraction1);
+        document.writeln(`<div>(${fraction1.numerator}/${fraction1.denominator})
+= ${resultReduction.numerator}/${resultReduction.denominator}</div>`);
+    </script>
+</head>
+<body>
+<!--Задание 2-->
+<!--Создать объект, хранящий в себе отдельно числитель и зна-->
+<!--менатель дроби, и следующие функции для работы с этим объ-->
+<!--ектом.-->
+<!--1. Функция сложения 2-х объектов-дробей.-->
+<!--2. Функция вычитания 2-х объектов-дробей.-->
+<!--3. Функция умножения 2-х объектов-дробей.-->
+<!--4. Функция деления 2-х объектов-дробей.-->
+<!--5. Функция сокращения объекта-дроби-->
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task2</title>
+    <script>
+        let cssProperties = [
+            new CssProperty("color", "brown"),
+            new CssProperty("font-size", "20")
+        ];
+
+        print(cssProperties, `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, amet animi aspernatur assumenda consectetur delectus est eveniet ex expedita laboriosam maiores maxime, modi molestias placeat quod reprehenderit saepe sunt voluptatum?`);
+
+        function print(cssPropertiesList, text) {
+            // let style ="";
+            // cssPropertiesList.forEach((property)=> style +=`${property.name}:${property.value};`)
+            const style = cssPropertiesList.map((property)=>{return `${property.name}:${property.value};`}).join("");
+            document.write(`<p style="${style}">${text}</p>`);
+        }
+
+        function CssProperty(name, value) {
+            this.name = name;
+            this.value = value;
+        }
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>

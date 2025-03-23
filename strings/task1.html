@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task1</title>
+<script>
+    let string="Lorem 123,4 ...";
+    statistics(string);
+    function statistics(string) {
+        let letters=string.match(/[a-z]/gi);
+        let digits = string.match(/[0-9]/g);
+        console.log(letters);
+        document.write(string+"<br/>");
+        document.write("letters amount: "+letters.length+"<br/>");
+        document.write("digits amount: "+digits.length+"<br/>");
+        document.write("other symbols amount: "+ (string.length-letters.length-digits.length));
+    }
+</script>
+</head>
+<body>
+
+</body>
+</html>

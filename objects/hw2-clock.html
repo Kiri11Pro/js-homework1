@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clock</title>
+    <script>
+        //         Создать объект, описывающий время (часы, минуты, секун
+        //         ды), и следующие функции для работы с этим объектом.
+        //         1. Функция вывода времени на экран.
+        //         2. Функция изменения времени на переданное количество
+        //         секунд.
+        //         3. Функция изменения времени на переданное количество
+        //         минут.
+        //         4. Функция изменения времени на переданное количество
+        //         часов.
+        //             Учтите, что в последних 3-х функциях, при изменении одной
+        //         части времени, может измениться и другая. Например: если ко
+        //         времени «20:30:45» добавить 30 секунд, то должно получиться
+        // «20:31:15», а не «20:30:75»
+        function Clock(hour, minute, second) {
+            this.hour = hour;
+            this.minute = minute;
+            this.second = second;
+        }
+
+        const clock = new Clock(2, 20, 24);
+
+        function output(clock) {
+            return document.writeln(`<div>${clock.hour}:${clock.minute}:${clock.second}</div>`)
+        }
+
+
+        function addSeconds(clock, second) {
+
+            let newSecond = clock.second + second;
+            let newMinute = clock.minute;
+            let newHour = clock.hour;
+            if (newSecond >= 60) {
+                const addMinutes = Math.floor(newSecond / 60);
+                newMinute = clock.minute + addMinutes;
+                newSecond -= addMinutes * 60;
+            }
+            if (newMinute >= 60) {
+                const addHour = Math.floor(newMinute / 60);
+                newHour = clock.hour + addHour;
+                newMinute -= addHour * 60;
+            }
+            if (newHour >= 24) {
+                const addDay = Math.floor(newHour / 24);
+                newHour = newHour - addDay * 24;
+            }
+            clock.hour = newHour;
+            clock.minute = newMinute;
+            clock.second = newSecond;
+        }
+
+
+        function addMinutes(clock, minute) {
+            let newMinute = clock.minute + minute;
+            let newHour = clock.hour;
+            if (newMinute >= 60) {
+                const addHour = Math.floor(newMinute / 60);
+                newHour = clock.hour + addHour;
+                newMinute -= addHour * 60;
+            }
+            if (newHour >= 24) {
+                const addDay = Math.floor(newHour / 24);
+                newHour = newHour - addDay * 24;
+            }
+            clock.hour = newHour;
+            clock.minute = newMinute;
+        }
+
+        function addHours(clock, hour) {
+            let newHour = clock.hour + hour;
+            if (newHour >= 24) {
+                const addDay = Math.floor(newHour / 24);
+                newHour = newHour - addDay * 24;
+            }
+            clock.hour = newHour;
+        }
+
+        output(clock);
+        addSeconds(clock, 9000);
+        output(clock);
+        addMinutes(clock, 55);
+        output(clock);
+        addHours(clock, 22);
+        output(clock);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
