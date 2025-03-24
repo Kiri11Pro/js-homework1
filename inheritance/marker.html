@@ -11,25 +11,28 @@
             }
 
             print(text) {
-                for (let i = 0; i < text.length; i++) {
-                    if (text.charAt(i) !== " " && this.inkPercentage >= 0.5||text.charAt(i)==="") {
-                        document.write(text.charAt(i));
-                        if(text.charAt(i)!==" "){
-                            this.inkPercentage-=0.5;
-                        }
-
+                let content="";
+                for (let i = 0; i < text.length && this.inkPercentage >= 0.5; i++) {
+                    content+=text.charAt(i);
+                    if (text.charAt(i) !== " ") {
+                        this.inkPercentage -= 0.5;
                     }
                 }
+                document.write(`<p style="color: ${this.color}">${content}</p>`)
             }
         }
-        class RechargeableMarker extends Marker{
-            recharge(inkValue){
-                this.inkPercentage+=inkValue;
-                if(this.inkPercentage>100){
-                    this.inkPercentage=100
+
+        class RechargeableMarker extends Marker {
+            recharge(inkValue) {
+                this.inkPercentage += inkValue;
+                if (this.inkPercentage > 100) {
+                    this.inkPercentage = 100
                 }
             }
         }
+        let marker=new RechargeableMarker("darkgreen",3);
+        marker.recharge(0);
+        marker.print("12, 456 7");
     </script>
 </head>
 <body>

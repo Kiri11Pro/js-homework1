@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 4 - Commenting</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        textarea, input[type="submit"] {
+            width: 100%;
+        }
+
+        textarea {
+            height: 10em;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            /*document.querySelector('input[type="button"]').addEventListener(
+              "click", () => {
+                  let div = document.createElement("div");
+                    let name = document.createElement("p");
+                  document.querySelector("#comments").appendChild(div);
+                }
+            );*/
+            document.forms[0].addEventListener(
+                "submit", (e) => {
+                    e.preventDefault();
+                    let div = document.createElement("div");
+                    let name = document.createElement("p");
+                    name.innerText = document.querySelector("input").value;
+
+                    let currentDate = new Date();
+                    let now = currentDate.getDate() + "." + (currentDate.getMonth() + 1) + "." + currentDate.getFullYear();
+                    let date = document.createElement("p");
+                    date.innerText = now;
+                    let comment = document.createElement("p");
+                    comment.innerText = document.querySelector("textarea").value;
+                    div.appendChild(document.createElement("hr"));
+                    div.appendChild(name);
+                    div.appendChild(date);
+                    div.appendChild(comment);
+                    document.querySelector("#comments").appendChild(div);
+                }
+            )
+        }
+    </script>
+</head>
+<body>
+<main>
+    <article>
+        <h1>What is Lorem Ipsum?</h1>
+        <section>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
+                into
+                electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+                release of
+                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+                Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+        </section>
+        <hr>
+        <section id="comments">
+            <div>
+                <p>Antoine</p>
+                <p>22.03.2018</p>
+                <p>Best comments from Antoine!</p>
+            </div>
+        </section>
+        <hr>
+        <section>
+            <form>
+                <p><b>Leave your comment</b></p>
+                <label>Name:
+                    <input type="text"/>
+                </label><br/>
+                <label>
+                    Comment:<br/>
+                    <textarea></textarea>
+                </label><br/>
+                <input type="submit" value="Add comment"/>
+            </form>
+        </section>
+    </article>
+</main>
+</body>
+</html>

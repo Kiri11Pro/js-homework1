@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM BOM - Task 3</title>
+    <style>
+        #colors-container{
+            width: 15%;
+            border: 1px solid lightslategrey;
+        }
+        #colors-container div {
+            display: inline-block;
+            height: 1em;
+            width: 1.5em;
+            margin: 2px;
+            border: 1px solid lightslategrey;
+        }
+    </style>
+    <script>
+        // window.onload=()=>{
+        //     let divs=document.querySelectorAll("#colors-container>div");
+        //     for (const div of divs){
+        //         div.addEventListener("click",(event)=>{
+        //             document.querySelector("p").style.color=event.target.style.backgroundColor;
+        //         });
+        //     }
+        // };
+        window.onload=()=>{
+          document.querySelectorAll("#colors-container>div").forEach(div=>{
+              div.addEventListener("click",(event)=>{
+                  document.querySelector("p").style.color=event.target.getAttribute("data-color");
+              })
+          })
+        };
+
+    </script>
+</head>
+<body>
+<main>
+    <article>
+        <section id="colors-container">
+            <div style="background-color: brown" data-color="brown"></div>
+            <div style="background-color: darkcyan" data-color="darkcyan"></div>
+            <div style="background-color: #0bff00" data-color="#0bff00"></div>
+            <div style="background-color: #adffec" data-color="#adffec"></div>
+            <div style="background-color: #fcd081" data-color="#fcd081"></div>
+            <div style="background-color: #0051ff" data-color="#0051ff"></div>
+        </section>
+        <section>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aspernatur distinctio et, eum fugit,
+                inventore itaque natus nesciunt porro provident quasi qui rerum tempora ullam voluptate! Eum id neque quaerat.
+            </p>
+        </section>
+    </article>
+</main>
+
+</body>
+</html>
