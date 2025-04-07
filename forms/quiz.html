@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms - Task 2</title>
+    <script>
+        window.onload = () => {
+            let questions = [
+                {
+                    question: "Сколько букв в слове 'Hello'?",
+                    options: [
+                        {
+                            value: "5",
+                            correct: true
+                        },
+                        {
+                            value: "2",
+                            correct: false
+                        }
+                    ]
+                },
+                {
+                    question: "Сколько букв в слове 'Java'?",
+                    options: [
+                        {
+                            value: "5",
+                            correct: false
+                        },
+                        {
+                            value: "4",
+                            correct: true
+                        }
+                    ]
+                },
+                {
+                    question: "Сколько букв в слове 'HTML'?",
+                    options: [
+                        {
+                            value: "5",
+                            correct: false
+                        },
+                        {
+                            value: "4",
+                            correct: true
+                        }
+                    ]
+                }
+            ];
+            let p = document.querySelector("p");
+            let index = 0;
+            let count = 0;
+            let radios = document.querySelectorAll(`input[type="radio"]`);
+            let labels = document.querySelectorAll(`label`);
+            printQuestionText(index);
+            let button = document.querySelector("button");
+            button.innerText = "Next";
+            button.addEventListener("click", function () {
+                for (let i = 0; i < radios.length; i++) {
+                    if (radios[i].checked && questions[index].options[i].correct) {
+                        count++;
+                        radios[i].checked = false;
+                        break;
+                    } else {
+                        radios[i].checked = false;
+                    }
+                }
+                index++;
+                if (index < questions.length) {
+                    printQuestionText(index);
+                }
+                if (index === questions.length - 1) {
+                    button.innerText = "Finish";
+                }
+                if (index === questions.length) {
+                    p.innerText = `Result: ${count} correct answer to ${questions.length}`
+                    radios.forEach(radio => radio.remove());
+                    button.remove();
+                    labels.forEach(label => label.remove());
+                }
+            });
+
+            function printQuestionText(index) {
+                p.innerText = `${index + 1}) ${questions[index].question}`;
+                for (let i = 0; i < 2; i++) {
+                    radios[i].value = questions[index].options[i].value;
+                    labels[i].innerText = questions[index].options[i].value;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<main>
+    <p></p>
+    <input id="option1" name="option" type="radio"><label for="option1"></label><br>
+    <input id="option2" name="option" type="radio"><label for="option2"></label><br>
+    <button>
+    </button>
+</main>
+
+</body>
+</html>
