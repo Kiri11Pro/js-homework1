@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookies - Task</title>
+    <style>
+        form ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        form {
+            width: 30%;
+            margin: auto;
+        }
+
+        div{
+            display: inline-block;
+            margin: 5px;
+            /*color: rgba(241, 9, 52, 0.87);*/
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            let index = 0;
+            document.forms[0].addEventListener("submit", submitHandler);
+
+            function submitHandler(event) {
+                event.preventDefault();
+                let name = document.querySelector("#color");
+                let type = document.querySelector("#type");
+                let code = document.querySelector("#code");
+                document.cookie = `color${index++}=${code};max-age=10800`;
+                let div = document.createElement("div");
+                div.style.backgroundColor = code.value;
+                let p1=document.createElement("p");
+                p1.innerText=name.value;
+                let p2=document.createElement("p");
+                p2.innerText=type.value;
+                let p3=document.createElement("p");
+                p3.innerText=code.value;
+                div.append(p1,p2,p3);
+                document.querySelector("section:last-child").appendChild(div);
+            }
+        }
+    </script>
+</head>
+<body>
+<main>
+
+    <section>
+        <form action="">
+            <h1>Create new color</h1>
+            <ul>
+                <li>
+                    <label for="color">Color:</label><br>
+                    <input id="color" name="color" type="text">
+                </li>
+                <li>
+                    <label for="type">Type:</label><br>
+                    <select id="type" name="type">
+                        <option value="rgb">RGB</option>
+                        <option value="rgba">RGBA</option>
+                        <option value="hex">HEX</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="code">Code:</label><br>
+                    <input id="code" name="code" type="text">
+                </li>
+                <li>
+                    <input type="submit" value="Save">
+                </li>
+            </ul>
+        </form>
+    </section>
+    <section>
+
+    </section>
+</main>
+</body>
+</html>

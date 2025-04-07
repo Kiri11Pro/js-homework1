@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms - Task 3</title>
+    <style>
+        p {
+            text-wrap: wrap;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            document.forms[0].addEventListener("submit", submitHandler);
+
+            function submitHandler(event) {
+                event.preventDefault();
+                let p = document.createElement("p");
+                let text = document.querySelector("textarea").value;
+                p.innerText = text;
+                document.querySelector("main").appendChild(p);
+                let radios = document.querySelectorAll(`input[type="radio"]`);
+                for (let i = 0; i < radios.length; i++) {
+                    if(radios[i].checked){
+                        p.style.textAlign=radios[i].value;
+                    }
+                }
+
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+<main>
+    <form>
+        <input id="bold" name="bold" type="checkbox"><label for="bold">Bold</label>
+        <input id="underline" name="underline" type="checkbox"><label for="underline">Underline</label>
+        <input id="italic" name="italic" type="checkbox"><label for="italic">Italic</label>
+        <input id="left" name="position" type="radio" value="left"><label for="left">Left</label>
+        <input id="right" name="position" type="radio" value="right"><label for="right">Right</label>
+        <input id="justify" name="position" type="radio" value="justify"><label for="justify">Justify</label>
+        <br>
+        <textarea></textarea>
+        <br>
+        <input type="submit" value="Show text">
+<!--        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aspernatur assumenda dicta est explicabo in laudantium numquam pariatur perferendis placeat, provident, quam quod recusandae repudiandae suscipit tempore vitae voluptatibus voluptatum.-->
+    </form>
+</main>
+</body>
+</html>

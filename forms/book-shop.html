@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forms - Task 4</title>
+    <style>
+        main {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        section {
+            border: 1px solid grey;
+            flex-basis: 20%;
+            margin: 10px;
+            text-align: center;
+            vertical-align: inherit;
+            padding: 10px 10px 20px;
+            height: 530px;
+            position: relative;
+        }
+
+        section:last-child {
+            flex-basis: 40%;
+        }
+
+        .title {
+            text-align: left;
+            font-family: "Arial Black", sans-serif;
+            margin: 0;
+        }
+
+        .author {
+            text-align: left;
+            margin: 0;
+        }
+
+        .price {
+            font-family: "Arial Black", sans-serif;
+            font-size: 1.3em;
+            text-align: right;
+            margin: 0;
+
+        }
+
+        .footer {
+            width: 300px;
+            position: absolute;
+            bottom: 20px;
+        }
+
+        button {
+            font-family: "Arial Black", sans-serif;
+            text-align: center;
+            width: 100%;
+            height: 2em;
+        }
+
+
+        img {
+            width: 300px;
+            height: 400px;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            document.querySelectorAll("button").forEach(btn => btn.addEventListener("click", clickHandler));
+            document.forms[0].addEventListener("submit", submitHandler);
+
+            function clickHandler(event) {
+                let section = event.target.parentElement;
+                document.querySelector("#book").value = section.querySelector(".title").innerText;
+            }
+
+            function submitHandler(event) {
+
+                let h1 = document.createElement("h1");
+                h1.innerText = "Result:";
+                let p1 = document.createElement("p");
+                p1.innerText = `${document.querySelector("#name").value}, thanks for the order!`;
+                let p2 = document.createElement("p");
+                p2.innerText = `Book ${document.querySelector("#book").value} will be delivered on ${document.querySelector("#date").value}`;
+                let section = document.createElement("section");
+                section.append(p1, p2);
+                let article = document.createElement("article");
+                article.appendChild(h1);
+                article.appendChild(section);
+                document.querySelector("main").textContent = "";
+                document.querySelector("main").appendChild(article);
+            }
+        };
+
+    </script>
+</head>
+<body>
+<main>
+    <section>
+        <img alt="" src="1.jpg">
+        <p class="title">Learning JavaScript. JavaScript Essentials for Modern Application Development</p>
+        <p class="author">Ethan Brown</p>
+        <div class="footer"><p class="price">16$</p>
+            <button>Select</button>
+        </div>
+    </section>
+    <section>
+        <img alt="" src="2.jpg">
+        <p class="title">You Don't Know JS: Scope & Closures</p>
+        <p class="author">Kyle Simpson</p>
+        <div class="footer"><p class="price">20$</p>
+            <button>Select</button>
+        </div>
+    </section>
+    <section>
+        <img alt="" src="3.jpg">
+        <p class="title">JavaScript and JQuery: Interactive Front-End Web Development</p>
+        <p class="author">Jon Duckett</p>
+        <div class="footer"><p class="price">22$</p>
+            <button>Select</button>
+        </div>
+    </section>
+    <section>
+        <form action="">
+            <div>
+                <label for="book">Book:</label>
+                <input disabled id="book" name="book" type="text">
+            </div>
+            <div>
+                <label for="quantity">Quantity:</label>
+                <input id="quantity" name="quantity" type="text">
+            </div>
+            <div>
+                <label for="name">Name:</label>
+                <input id="name" name="name" type="text">
+            </div>
+            <div>
+                <label for="address">Delivery address:</label>
+                <textarea cols="30" id="address" name="address" rows="10"></textarea>
+            </div>
+            <div>
+                <label for="date">Delivery date:</label>
+                <input id="date" name="date" type="date">
+            </div>
+            <div>
+                <label for="comment">Comment:</label>
+                <textarea cols="30" id="comment" name="comment" rows="10"></textarea>
+            </div>
+            <input type="submit" value="Buy">
+        </form>
+    </section>
+</main>
+</body>
+</html>
