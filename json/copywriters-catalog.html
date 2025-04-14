@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .user-block {
+            display: inline-block;
+            border: 1px solid gray;
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        let request = new XMLHttpRequest();
+        request.onload = function () {
+            const users = JSON.parse(this.responseText);
+            let div;
+            for (const user of users) {
+                div = document.createElement("div");
+                div.innerText = user.name;
+                div.className = "user-block";
+                div.id = user.id;
+                document.body.append(div);
+                div.addEventListener("click", showPosts);
+
+                console.log(user.name);
+            }
+        }
+        request.open(
+            "GET",
+            "https://jsonplaceholder.typicode.com/users");
+        request.send();
+
+        function showPosts(e) {
+            const rq = new XMLHttpRequest();
+            rq.onload = function () {
+                const posts = JSON.parse(this.responseText);
+                let div;
+                for (const post of posts) {
+                    div = document.createElement("div");
+                    div.innerText = post.body;
+                    div.className = "user-block";
+                    document.body.append(div);
+                }
+            }
+            rq.open("GET",
+                `https://jsonplaceholder.typicode.com/posts?userId=${e.target.id}`);
+            rq.send();
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
