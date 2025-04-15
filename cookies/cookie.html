@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie</title>
+    <script>
+        window.onload = () => {
+            document.querySelector("button").addEventListener("click", clickHandler);
+            document.querySelectorAll("button")[1].addEventListener("click", viewHandler);
+
+            function clickHandler(event) {
+                document.cookie = "name=user1";
+                document.cookie = "name=user2; max-age=5";
+                console.log(document.cookie);
+                event.target.disable=true;
+            }
+            function viewHandler(){
+                console.log(document.cookie);
+            }
+        };
+    </script>
+</head>
+<body>
+<button>Click</button>
+<button>View cookies</button>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM BOM - Task2</title>
+    <style>
+        #container div {
+            display: inline-block;
+            height: 1em;
+            width: 1.5em;
+            margin: 3px;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            document.querySelector("button").addEventListener("click", () => {
+                let div = document.createElement("div");
+
+                div.style.backgroundColor = `rgb(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)})`;
+                div.setAttribute("class", "block");
+                div.addEventListener("click", () => {
+                    div.remove();
+                });
+                document.querySelector("#container").appendChild(div);
+            });
+        }
+    </script>
+</head>
+<body>
+<main>
+    <section>
+        <div id="container">
+
+        </div>
+        <button>Add block</button>
+    </section>
+</main>
+
+</body>
+</html>

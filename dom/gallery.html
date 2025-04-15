@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM BOM - Task 2</title>
+    <style>
+        span {
+            font-size: 5em;
+        }
+
+        img {
+            width: 35%;
+        }
+
+        #gallery {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .blocked {
+            opacity: 0.5;
+        }
+
+    </style>
+    <script>
+        const images = [
+            "images/ball.png",
+            "images/bird.jpg",
+            "images/mountain.jpg"
+        ];
+        // window.onload = () => {
+        //     let index = 1;
+        //
+        // };
+        window.onload = () => {
+            let index = 0;
+            document.querySelector("span:last-child").addEventListener(
+                "click", (event) => {
+                    // if (index < images.length) {
+                    index++;
+                    if (index > images.length - 1) {
+                        index = images.length - 1;
+                    }
+                    if(index===images.length-1){
+                        event.target.className="blocked";
+                    }
+                    document.querySelector("img").setAttribute("src", images[index]);
+                    // }
+                    // if (index === images.length) {
+                    //     index=images.length-1;
+                    //     event.target.style.opacity += "0.5";
+                    // }
+                    console.log(index);
+                }
+            )
+            document.querySelector("span:first-child").addEventListener(
+                "click", (event) => {
+                    // if(index>0){
+                    index--;
+                    if (index <= 0) {
+                        index = 0;
+                    }
+                    if(index===0){
+                        event.target.className="blocked";
+                    }
+
+                    document.querySelector("img").setAttribute("src", images[index]);
+                    // }
+                    // if (index === images.length) {
+                    //     index=images.length-1;
+                    //     event.target.style.opacity += "0.5";
+                    // }
+
+                    console.log(index);
+                }
+            )
+        };
+    </script>
+</head>
+<body>
+<main>
+    <section id="gallery">
+        <span>&#8678</span>
+        <img alt="ball" src="images/ball.png">
+        <span>&#8680</span>
+    </section>
+</main>
+
+</body>
+</html>
