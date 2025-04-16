@@ -14,15 +14,38 @@
             margin: auto;
         }
 
-        div{
+        div {
             display: inline-block;
             margin: 5px;
-            /*color: rgba(241, 9, 52, 0.87);*/
+            /*color: #0051ff;*/
+            /*color: rgba(241, 9, 52, 0.1);*/
         }
     </style>
     <script>
         window.onload = () => {
-            let index = 0;
+            let index;
+            if (document.cookie.indexOf("index") === -1) {
+                index = 0;
+            } else {
+
+                index = parseInt(getCookie("index"));
+            }
+            for (let i=0;i<index;i++){
+                let colorCode=getCookie("color"+i);
+                let type;
+                if (colorCode.startsWith("#")){
+                    type="HEX";
+                }else if(colorCode.startsWith("rgba")){
+                    type="RGBA";
+                }else {
+                    type="RGB";
+                }
+                printColorBlock(
+                    getCookie("name"+i),
+
+
+                )
+            }
             document.forms[0].addEventListener("submit", submitHandler);
 
             function submitHandler(event) {
@@ -30,18 +53,50 @@
                 let name = document.querySelector("#color");
                 let type = document.querySelector("#type");
                 let code = document.querySelector("#code");
-                document.cookie = `color${index++}=${code};max-age=10800`;
+                let codeValue;
+                switch (type.value) {
+                    case 'rgb':
+                        // if(code.value)
+                        codeValue = `rgb(${code.value})`;
+                        break;
+                    case 'rgba':
+                        codeValue = `rgba(${code.value})`;
+                        break;
+                    case 'hex':
+                        codeValue = "#" + code.value;
+                        break;
+                    default:
+                        throw new Error(type.value + " is not supported");
+                }
+                document.cookie = `color${index}=${codeValue};max-age=10800`;
+                document.cookie=`name${index}=${name.value};max-age=10800`;
+                index++;
+                document.cookie = "index=" + index + "; max-age=10800";
+                printColorBlock(name.value,type.value,codeValue);
+                name.value = "";
+                code.value = "";
+
+            }
+
+            function printColorBlock(colorName, colorType, colorCode) {
                 let div = document.createElement("div");
-                div.style.backgroundColor = code.value;
-                let p1=document.createElement("p");
-                p1.innerText=name.value;
-                let p2=document.createElement("p");
-                p2.innerText=type.value;
-                let p3=document.createElement("p");
-                p3.innerText=code.value;
-                div.append(p1,p2,p3);
+                div.style.backgroundColor = colorCode;
+                let p1 = document.createElement("p");
+                p1.innerText = colorName;
+                let p2 = document.createElement("p");
+                p2.innerText = colorType;
+                let p3 = document.createElement("p");
+                p3.innerText = colorCode;
+                div.append(p1, p2, p3);
                 document.querySelector("section:last-child").appendChild(div);
             }
+        };
+
+        function getCookie(name) {
+            let from = document.cookie.indexOf(name);
+            let subStr = document.cookie.substring(from);
+            let arr = subStr.split(";");
+            return arr[0].substring(arr[0].indexOf("=") + 1);
         }
     </script>
 </head>
