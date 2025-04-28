@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>AJAX JSON - Task 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -23,35 +24,74 @@
 
     </style>
     <script>
-        window.onload = () => {
-            document.forms[0].addEventListener("submit", search);
+        $(document).ready(function () {
+                document.forms[0].addEventListener("submit", search);
 
-            function search(e) {
-                e.preventDefault();
-                const request = new XMLHttpRequest();
-                request.onload = function () {
-                    console.log(this.responseText);
-                };
-                const title = document.querySelector("#title").value;
-                const type = document.querySelector("#type").value;
+                function search(e) {
+                    e.preventDefault();
+                    // const request = new XMLHttpRequest();
+                    // request.onload = function () {
+                    //     console.log(this.responseText);
+                    // };
+                    const title = $("#title").val();
+                    const type = $("#type").val();
+                    const page = 2;
 
-                request.open("GET", `http://www.omdbapi.com/?s=${title}&type=${type}`);
-                request.send();
+                    let url = `http://www.omdbapi.com/?s=${title}&type=${type}&page=${page}&apikey=9a9da63e`;
+                    $.ajax(
+                        {
+                            url: url,
+                            type: 'GET',
+                            dataType: 'jsonp',
+                            success: function (data) {
+                                data.Search.forEach(showFilm(film));
+                                // console.log(film);
+                            }
+                            // console.log(data);
+                        }
+                    );
+
+                    function showFilm(film) {
+                        $("#searchResult").append(`<p>${film.Title}</p>`)
+                    }
+
+                    // console.log(url);
+                    // request.open("GET", url);
+                    // request.send();
+                }
             }
-        };
+        )
+        ;
+        // window.onload = () => {
+
+
+        // function search(e) {
+        //     e.preventDefault();
+        //     const request = new XMLHttpRequest();
+        //     request.onload = function () {
+        //         console.log(this.responseText);
+        //     };
+        //     const title = document.querySelector("#title").value;
+        //     const type = document.querySelector("#type").value;
+        //
+        //     request.open("GET", `http://www.omdbapi.com/?s=${title}&type=${type}`);
+        //     request.send();
+        // }
+
     </script>
 </head>
 <body>
+
 <main>
     <div>Search:</div>
     <form>
         <div>
             <label for="title">Title:</label>
-            <input disabled id="title" name="title" type="text">
+            <input id="title" name="title" type="text">
         </div>
         <div>
-            <label for="type-select">Type:</label>
-            <select id="type-select" name="type">
+            <label for="type">Type:</label>
+            <select id="type" name="type">
                 <option value="movie">Movie</option>
                 <option value="series">Series</option>
                 <option value="episode">Episode</option>
@@ -61,6 +101,7 @@
             <input type="submit" value="Search">
         </div>
     </form>
+    <div id="searchResult"></div>
 </main>
 </body>
 </html>

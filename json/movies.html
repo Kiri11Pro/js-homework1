@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX JSON - Task 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style></style>
+    <script>
+        $(document).ready(function () {
+            document.forms[0].addEventListener("submit", search);
+
+
+            function search(e) {
+                e.preventDefault();
+                const request = new XMLHttpRequest();
+                request.onload = function () {
+                    console.log(this.responseText);
+                };
+
+                const title = $("#title").val();
+                const type = $("#type").val();
+                const url = `http://www.omdbapi.com/?t=${title}&type=${type}&page=2&apikey=3278a82c`;
+                console.log(url);
+                request.open("GET", url);
+                request.send();
+            }
+        });
+       /* window.onload = () => {
+
+        };*/
+    </script>
+
+</head>
+<body>
+<h1>Search</h1>
+<form action="">
+
+    <input type="text" name="title" id="title">
+    <select name="type" id="type">
+        <option value="movie">Movie</option>
+        <option value="series">Series</option>
+        <option value="episode">Episode</option>
+    </select>
+    <input type="submit" value="Search">
+</form>
+</body>
+</html>
