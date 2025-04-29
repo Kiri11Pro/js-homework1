@@ -29,7 +29,7 @@
                 this.isVoid = isVoid;
                 this.text = text;
                 this.attributes = [];
-                this.ccsProperties = [];
+                this.cssProperties = [];
                 this.nestingElements = [];
             }
 
@@ -38,7 +38,7 @@
             }
 
             setCssProperty(cssProperty) {
-                this.ccsProperties.push(cssProperty);
+                this.cssProperties.push(cssProperty);
             }
 
             pushNestingElement(newHtmlElement) {
@@ -50,64 +50,105 @@
             }
 
             getHtml() {
-                let html = "<" + this.name;
+                let html = "<" + this.name + " ";
+
                 this.attributes.forEach(attribute => html += ` ${attribute.name}="${attribute.value}"`);
-                if (this.ccsProperties.length !== 0) {
+
+                if (this.cssProperties.length !== 0) {
                     html += 'style="';
-                    this.ccsProperties.forEach(cssProperties => html += `${cssProperties.name}: ${cssProperties.value};`);
+                    this.cssProperties.forEach(cssProperties => html += `${cssProperties.name}: ${cssProperties.value};`);
                     html += '"';
                 }
+
                 if (this.isVoid) {
                     html += "/>";
 
                 } else {
                     html += ">";
                     html += this.text;
+                    this.nestingElements.forEach(element => html += element.getHtml());
                     html += `</${this.name}>`;
                 }
                 return html;
             }
         }
 
-        const div = new HtmlElement("div", false, "Text content");
-        div.setAttribute(
+        const p = new HtmlElement("p", false, "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita ipsa possimus sed. Adipisci exercitationem iste itaque molestias necessitatibus. Amet aspernatur deserunt, hic illo optio porro quas quibusdam veniam voluptate voluptatibus!");
+        p.setCssProperty(
             {
-                name: "id",
-                value: "myDiv"
+                name: "text-align",
+                value: "justify"
             }
         );
-        div.setCssProperty(
+        const a = new HtmlElement("a", false, "More...");
+        a.setAttribute(
             {
-                name: "color",
-                value: "brown"
+                name: "href",
+                value: "https://www.lipsum.com/"
             }
         );
-        div.setCssProperty(
+        a.setAttribute(
             {
-                name: "border",
-                value: "2px solid orange"
+                name: "target",
+                value: "_blank"
             }
         );
 
-            document.write(div.getHtml());
-        const div1 = new HtmlElement("div",false,div.getHtml());
+
+        const img = new HtmlElement("img", true, "");
+        img.setAttribute({
+            name: "style",
+            value: "width: 100%"
+        });
+        img.setAttribute({
+            name: "src",
+            value: "lipsum.jpg"
+        });
+        img.setAttribute({
+            name: "alt",
+            value: "Lorem Ipsum"
+        });
+
+        const h3 = new HtmlElement("h3", false, "What is Lorem Ipsum?");
+        // p.pushNestingElement(h3);
+        // const div = new HtmlElement("div", false, h3.getHtml() + img.getHtml() + p.getHtml()+a.getHtml());
+        const div = new HtmlElement("div", false, "");
+        div.pushNestingElement(h3);
+        div.pushNestingElement(img);
+        div.pushNestingElement(p);
+        p.pushNestingElement(a);
+        div.setCssProperty(
+            {
+                name: "width",
+                value: "300px"
+            }
+        );
+        div.setCssProperty(
+            {
+                name: "margin",
+                value: "10px"
+            }
+        );
+        const div1 = new HtmlElement("div", false, div.getHtml());
         div1.setAttribute(
             {
-                name:"id",
-                value:"wrapper"
+                name: "id",
+                value: "wrapper"
             });
-            div1.setCssProperty(
-                {
-                    name:"display",
-                    value:"flex"
-                }
-            );
+        div1.setCssProperty(
+            {
+                name: "display",
+                value: "flex"
+            }
+        );
+        div1.pushNestingElement(div);
+
         document.write(div1.getHtml());
 
     </script>
 </head>
 <body>
-<!--<div id="myDiv" style="color: brown;border: 2px solid orange">Text content</div>-->
+
 
 </body>
 </html>

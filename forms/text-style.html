@@ -4,8 +4,31 @@
     <meta charset="UTF-8">
     <title>Forms - Task 3</title>
     <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
         p {
             text-wrap: wrap;
+        }
+        main{
+            width: 500px;
+            background-color: #fcd081;
+            padding: 20px;
+
+        }
+        fieldset{
+            display: flex;
+            justify-content: space-between;
+            border: none;
+            padding-bottom: 10px;
+        }
+        textarea{
+            width: 100%;
+            height: 200px;
+        }
+        input[type="submit"]{
+            width: 100%;
         }
     </style>
     <script>
@@ -14,17 +37,39 @@
 
             function submitHandler(event) {
                 event.preventDefault();
+                // document.querySelector("main").innerHTML = "";
+                let header=document.createElement("header");
+                header.innerText="Result: ";
+                header.style.fontFamily=`Arial Black,sans-serif`;
+                header.style.padding=`0 0  10px 0`;
+                document.querySelector("main").appendChild(header);
                 let p = document.createElement("p");
-                let text = document.querySelector("textarea").value;
-                p.innerText = text;
+                p.innerText = document.querySelector("textarea").value;
                 document.querySelector("main").appendChild(p);
+                p.style.border=`solid 1px black`;
+                p.style.borderRadius=`5px`;
+                p.style.padding=`10px`;
+
                 let radios = document.querySelectorAll(`input[type="radio"]`);
                 for (let i = 0; i < radios.length; i++) {
                     if(radios[i].checked){
                         p.style.textAlign=radios[i].value;
                     }
                 }
-
+                let checkboxes=document.querySelectorAll(`input[type="checkbox"]`);
+                for (let i=0;i<checkboxes.length;i++){
+                    if (checkboxes[0].checked){
+                        p.style.fontWeight=checkboxes[0].value;
+                    }
+                    if (checkboxes[1].checked){
+                        p.style.textDecoration=checkboxes[1].value;
+                    }
+                    if (checkboxes[2].checked){
+                        p.style.fontStyle=checkboxes[2].value;
+                    }
+                }
+                let el = document.getElementById("form");
+                el.remove();
             }
         }
 
@@ -33,14 +78,15 @@
 </head>
 <body>
 <main>
-    <form>
-        <input id="bold" name="bold" type="checkbox"><label for="bold">Bold</label>
-        <input id="underline" name="underline" type="checkbox"><label for="underline">Underline</label>
-        <input id="italic" name="italic" type="checkbox"><label for="italic">Italic</label>
+    <form id="form">
+        <fieldset>
+        <input id="bold" name="bold" type="checkbox" value="bold"><label for="bold">Bold</label>
+        <input id="underline" name="underline" type="checkbox" value="underline"><label for="underline">Underline</label>
+        <input id="italic" name="italic" type="checkbox" value="italic"><label for="italic">Italic</label>
         <input id="left" name="position" type="radio" value="left"><label for="left">Left</label>
         <input id="right" name="position" type="radio" value="right"><label for="right">Right</label>
         <input id="justify" name="position" type="radio" value="justify"><label for="justify">Justify</label>
-        <br>
+        </fieldset>
         <textarea></textarea>
         <br>
         <input type="submit" value="Show text">
